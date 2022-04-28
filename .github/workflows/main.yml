@@ -1,23 +1,26 @@
 name: Publish the demo-project package
 on: [push]
 jobs:
-  Explore-GitHub-Actions:
+  Publish-The-Package:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
     steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
       - name: Check out repository code
         uses: actions/checkout@v3
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
       - name: Get abbreviated hash of the last commit
         run: |
           echo "abbreviated_commit_hash=$(git log -1 --pretty=format:%h)" >> $GITHUB_ENV
       - name: Print the abbreviated commit hash
         run: |
           echo "${{ env.abbreviated_commit_hash }}"
+      - name: Publish the package
+        run: yarn pack --filename demo-project-{{env.abbreviated_commit_hash}}.tgz
