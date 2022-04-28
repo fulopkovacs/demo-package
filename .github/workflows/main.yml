@@ -8,6 +8,10 @@ jobs:
       matrix:
         node-version: [16.x]
 
+    env:
+      SECRET: ${{ secrets.DO_SPACES_SECRET }}
+      KEY: ${{ secrets.DO_SPACES_KEY }}
+
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
@@ -22,5 +26,7 @@ jobs:
       - name: Print the abbreviated commit hash
         run: |
           echo "${{ env.abbreviated_commit_hash }}"
-      - name: Publish the package
+      - name: Pack the package
         run: yarn pack --filename demo-project-{{env.abbreviated_commit_hash}}.tgz
+      - name: Publish the package
+        run: bash scripts/publish-package.sh demo-project-{{env.abbreviated_commit_hash}}.tgz
