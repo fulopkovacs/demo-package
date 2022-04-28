@@ -1,0 +1,9 @@
+{
+  "name": "demo-package",
+  "version": "1.0.0",
+  "description": "A package that exports a helloWorld function.",
+  "main": "index.js",
+  "author": "Fülöp Kovács",
+  "license": "MIT",
+  "private": false
+}
