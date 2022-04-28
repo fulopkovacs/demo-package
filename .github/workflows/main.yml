@@ -15,3 +15,9 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
+      - name: Get abbreviated hash of the last commit
+        run: |
+          echo "abbreviated_commit_hash=$(git log -1 --pretty=format:%h)" >> $GITHUB_ENV
+      - name: Print the abbreviated commit hash
+        run: |
+          echo "${{ env.abbreviated_commit_hash }}"
