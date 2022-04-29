@@ -1,6 +1,5 @@
 name: Publish the demo-project package
-on:
-  pull_request:
+on: [push]
 
 jobs:
   Publish-The-Package:
