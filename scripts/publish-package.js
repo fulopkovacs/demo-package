@@ -12,8 +12,7 @@ const s3Client = new S3Client({
   },
 });
 
-const localFile = "demo-package-v1.0.0.tgz";
-const fileStream = fs.readFileSync(localFile);
+const fileStream = fs.readFileSync(process.env.PKG_NAME);
 
 // Step 3: Define the parameters for the object you want to upload.
 const s3Params = {
@@ -43,21 +42,3 @@ const uploadObject = async () => {
 
 // Step 5: Call the uploadObject function.
 uploadObject();
-
-// var client = s3.createClient(s3Client);
-/* console.log(s3Client.send);
-var uploader = s3Client.uploadFile({ s3Params, localFile });
-uploader.on("error", function (err) {
-  console.error("unable to upload:", err.stack);
-});
-uploader.on("progress", function () {
-  console.log(
-    "progress",
-    uploader.progressMd5Amount,
-    uploader.progressAmount,
-    uploader.progressTotal
-  );
-});
-uploader.on("end", function () {
-  console.log("done uploading");
-}); */
