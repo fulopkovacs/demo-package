@@ -44,4 +44,4 @@ jobs:
       - name: Publish the package
         env:
           PKG_NAME: "demo-project-{{env.abbreviated_commit_hash}}.tgz"
-        run: node scripts/publish-package.sh
+        run: node scripts/publish-package.js
