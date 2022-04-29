@@ -44,6 +44,9 @@ jobs:
       - name: Print the abbreviated commit hash
         run: |
           echo "${{ env.abbreviated_commit_hash }}"
+      - name: Update index.js with the abbreviated commit hash.
+        run: |
+          echo "console.log('package-version: ${{ env.abbreviated_commit_hash }}')" >> index.js
       - name: Pack the package
         run: yarn pack --filename demo-project-${{env.abbreviated_commit_hash}}.tgz
       - name: Install dependencies of the package
