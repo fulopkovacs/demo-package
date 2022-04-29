@@ -44,5 +44,5 @@ jobs:
         run: yarn
       - name: Publish the package
         env:
-          PKG_NAME: "demo-project-{{env.abbreviated_commit_hash}}.tgz"
+          PKG_NAME: "demo-project-${{env.abbreviated_commit_hash}}.tgz"
         run: node scripts/publish-package.js
