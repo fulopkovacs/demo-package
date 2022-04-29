@@ -33,7 +33,7 @@ const uploadObject = async () => {
     const data = await s3Client.send(new PutObjectCommand(s3Params));
     console.log(
       "Successfully uploaded object: " + s3Params.Bucket + "/" + s3Params.Key,
-      `url: \x1b[33m%s\x1b[0m \nhttps://packages.fulop.dev/${s3Params.Key}\n\x1b[0m`
+      `url: \x1b[33m\nhttps://packages.fulop.dev/${s3Params.Key}\n\x1b[0m`
     );
     return data;
   } catch (err) {
