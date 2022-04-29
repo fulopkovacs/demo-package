@@ -19,7 +19,7 @@ const s3Params = {
   Bucket: "my-npm-packages", // The path to the directory you want to upload the object to, starting with your Space name.
   Key: process.env.PKG_NAME, // Object key, referenced whenever you want to access this file later.
   // Body: "Hello, World!", // The object's contents. This variable is an object, not a string.
-  ACL: "public", // Defines ACL permissions, such as private or public.
+  ACL: "public-read", // Defines ACL permissions, such as private or public.
   Body: fileStream,
   Metadata: {
     // Defines metadata tags.
@@ -36,7 +36,8 @@ const uploadObject = async () => {
     );
     return data;
   } catch (err) {
-    console.log("Error", err);
+    // console.log("Error", err);
+    throw err;
   }
 };
 
