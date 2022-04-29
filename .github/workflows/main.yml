@@ -27,8 +27,8 @@ jobs:
       - uses: actions/cache@v2
         id: uploader-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
-          path: "${{ github.workspace }}/scripts/node_modules"
-          key: ${{ runner.os }}-uploader-cache-${{ hashFiles('scripts/yarn.lock') }}
+          path: "${{ github.workspace }}/uploader/node_modules"
+          key: ${{ runner.os }}-uploader-cache-${{ hashFiles('uploader/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-uploader-cache-
       - uses: actions/cache@v2
@@ -46,9 +46,12 @@ jobs:
           echo "${{ env.abbreviated_commit_hash }}"
       - name: Pack the package
         run: yarn pack --filename demo-project-${{env.abbreviated_commit_hash}}.tgz
-      - name: Install dependencies
+      - name: Install dependencies of the package
+        run: yarn
+      - name: Install dependencies of uploader package
+        working-directory: ${{ github.workspace }}/uploader
         run: yarn
       - name: Publish the package
         env:
           PKG_NAME: "demo-project-${{env.abbreviated_commit_hash}}.tgz"
-        run: node scripts/publish-package.js
+        run: node uploader/publish-package.js
