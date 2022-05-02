@@ -1,4 +1,4 @@
-name: Publish the demo-project package
+name: Publish the demo-package package
 on: [push]
 
 jobs:
@@ -49,7 +49,7 @@ jobs:
         run: |
           echo "console.log('package-version: ${{ env.abbreviated_commit_hash }}')" >> index.js
       - name: Pack the package
-        run: yarn pack --filename demo-project-${{env.abbreviated_commit_hash}}.tgz
+        run: yarn pack --filename demo-package-${{env.abbreviated_commit_hash}}.tgz
       - name: Install dependencies of the package
         run: yarn
       - name: Install dependencies of uploader package
@@ -57,5 +57,5 @@ jobs:
         run: yarn
       - name: Publish the package
         env:
-          PKG_NAME: "demo-project-${{env.abbreviated_commit_hash}}.tgz"
+          PKG_NAME: "demo-package-${{env.abbreviated_commit_hash}}.tgz"
         run: node uploader/publish-package.js
